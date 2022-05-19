@@ -126,3 +126,6 @@ In this step i presume you managed to compile and test the code successfully. th
 8. count_users (counting the number of users)` near call $account.testnet count_users --accountId $account.testnet`
 
 where $account.testnet represents your testnet account id`s
+
+## Aurthor
+### Felix Awere | Software Engineer 
