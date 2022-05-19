@@ -95,6 +95,8 @@ npm install -g near-cli
 ### Step 4: Log in to your near CLI
 
 Type `near login` in your terminal, you shall be redirected to a browser that looks like this.
+![saveddd](https://user-images.githubusercontent.com/92982964/169411895-1b2fbc51-631f-4c3d-85d6-3d0a509694e2.png)
+
 
 ### Step 5: Clone Code
 
