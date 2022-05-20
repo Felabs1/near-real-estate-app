@@ -133,5 +133,5 @@ In this step i presume you managed to compile and test the code successfully. th
 
 where $account.testnet represents your testnet account id`s
 
-## Aurthor
+## Author
 ### Felix Awere | Software Engineer 
