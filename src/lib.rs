@@ -142,8 +142,12 @@ impl Contract {
                 // i think we now have access to the data we need to manipulate
                 let id = value.id;
                 // inserting the same key in a hashmap edits it.
-                self.users.insert(username, User::new(id, name, usertype, contact));
-                env::log_str("Your Data has been edited successfully");
+                if username == env::signer_account_id().to_string() {
+                    self.users.insert(username, User::new(id, name, usertype, contact));
+                    env::log_str("Your Data has been edited successfully");
+                }else{
+                    env::log_str("you need to be logged in to this account");
+                }
 
             },
             None => {
@@ -169,6 +173,24 @@ impl Contract {
         properties.to_vec()
     }
 
+    // list owners properties
+    pub fn my_properties(&self) -> Vec<&Property>{
+        let properties = &self.user_properties;
+        let owner = env::signer_account_id().to_string();
+        let mut filtered_properties = Vec::new();
+        properties.into_iter().for_each(|property| {
+            if property.owner == owner {
+                filtered_properties.push(property);
+            }
+        });
+
+        if filtered_properties.len() > 0 {
+            return filtered_properties.to_vec();
+        }else{
+            return vec![];
+        }
+    }
+
 
     // the prices of the listed properties will be converted to near. 
     // the buyer will have to send some near tokens to buy a property after which the status will change to occupied,
@@ -182,11 +204,19 @@ impl Contract {
         properties.into_iter().for_each(|property| {
 
             //we change the status with the id to bought
-            if property.id == id {                
-                property.status = "bought".to_string();
-                let owner = property.owner.parse().unwrap();
-                // we then transfer the amount to the owner of the property
-                Promise::new(owner).transfer(property.price * a_near);    
+            if property.id == id {  
+                if property.status == "bought" {
+                    env::log_str("property has been bought allready");
+                }else{
+                    property.status = "bought".to_string();
+                    let owner = property.owner.parse().unwrap();
+                    // we then transfer the amount to the owner of the property
+                    Promise::new(owner).transfer(property.price * a_near);
+                    env::log_str("property bought successfully");
+                }              
+                    
+            }else{
+                env::log_str("the property does not exist");
             }
         })
 
@@ -194,8 +224,8 @@ impl Contract {
     }
 
     // counting of users
-    pub fn count_users(&mut self) -> usize{
-        self.users.len()
+    pub fn count_users(&mut self) -> usize{        
+        self.users.len()       
     }
 
 }
@@ -247,6 +277,7 @@ mod tests {
         result = user2.count_users();
         assert_eq!(result, 1);
         user2.reg_user("Molly Achieng".to_string(), "Agent".to_string(), "0731862583".to_string());
+        result = user2.count_users();
         assert_eq!(result, 1);
     
     }
@@ -275,8 +306,8 @@ mod tests {
         user1.buy_property(0);
         let properties = user1.list_properties();
         println!("{:?}", properties);
-        assert_eq!(properties[0].status.to_string(), "bought".to_string());
         user1.list_properties();
+        assert_eq!(properties[0].status.to_string(), "bought".to_string());
     }
 
     #[test]
@@ -288,6 +319,34 @@ mod tests {
         let mut contract = Contract::new(felix.to_string());
         println!("{:?}", contract);
         contract.reg_user("Felix Awere".to_string(), "Agent".to_string(), "0731862583".to_string());
-        println!("{:?}",contract)
+        println!("{:?}", contract.view_account());
+        let my_details = contract.view_account();
+        match my_details {
+            Some(value) => {
+                assert_eq!(value.name, "Felix Awere".to_string());
+                assert_eq!(value.username, felix.to_string());
+                assert_eq!(value.contact, "0731862583".to_string());
+            },
+            None => {
+                println!("User details null");
+            }
+        }
+    }
+
+    #[test]
+    fn view_my_properties(){
+        let felix = AccountId::new_unchecked("felix.testnet".to_string());
+        let context = get_context(felix.clone());
+        testing_env!(context.build());
+
+        let mut user1 = Contract::new(felix.to_string());
+        user1.new_property("39 Riara".to_string(), 30_000, "Nairobi".to_string(), "a very nice house to spend in pet friendly".to_string());
+        user1.new_property("48 Mango".to_string(), 300_000, "Nairobi".to_string(),  "a very nice house to spend in pet friendly".to_string());
+
+        let my_properties = user1.my_properties();
+        // println!("{:?}", my_properties);
+        my_properties.into_iter().for_each(|property|{
+            assert_eq!(property.owner.to_string(), user1.account_owner);
+        })
     }
 }

@@ -631,14 +631,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "near-smart-contract-rust-template"
-version = "0.1.0"
-dependencies = [
- "near-contract-standards",
- "near-sdk",
-]
-
-[[package]]
 name = "near-sys"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -676,6 +668,14 @@ dependencies = [
  "serde",
  "sha2",
  "sha3",
+]
+
+[[package]]
+name = "near_real_estate_app"
+version = "0.1.0"
+dependencies = [
+ "near-contract-standards",
+ "near-sdk",
 ]
 
 [[package]]
