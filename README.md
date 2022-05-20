@@ -53,14 +53,20 @@ A user could also count the number of properties and users registered in the con
 
 ```
 Root Folder
-├── contract
-│   ├── build.sh
-│   ├── Cargo.lock
-│   ├── Cargo.toml
-│   ├── src
-│   │   └── lib.rs
-│   └── test.sh
-└── README.md
+.
+├── build.sh
+├── Cargo.lock
+├── Cargo.toml
+├── deploy.sh
+├── dev-deploy.sh
+├── init-args.js
+├── LICENSE
+├── README.md
+├── rustfmt.toml
+└── src
+    ├── lib.rs
+    └── wasm
+
 
 ```
 
