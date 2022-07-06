@@ -12,7 +12,7 @@ pub type AccountId = String;
 // he is able to update his account details
 #[derive(Clone, Serialize, Deserialize, BorshDeserialize, BorshSerialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
-pub struct User {
+pub struct AppUser {
     id: u32,
     name: String,
     username: AccountId,
@@ -20,10 +20,10 @@ pub struct User {
     contact: String,
 }
 
-impl User {
+impl AppUser {
     // we initialize the fields we shall use when adding a new user
     pub fn new(id: u32, name: String, usertype: String, contact: String) -> Self {
-        User {
+        AppUser {
             id,
             name,
             username: env::signer_account_id().to_string(),
@@ -70,7 +70,7 @@ impl Property {
 pub struct Contract {
     account_owner: AccountId,
     // users collection
-    users: HashMap<String, User>,
+    users: HashMap<String, AppUser>,
 
     // user properties collection
     user_properties: Vec<Property>
@@ -80,7 +80,7 @@ pub struct Contract {
 impl Contract {
     #[init]
     pub fn new(account_owner: AccountId) -> Self {
-        let users: HashMap<String, User> = HashMap::new();
+        let users: HashMap<String, AppUser> = HashMap::new();
         let user_properties: Vec<Property> = Vec::new();
 
         Contract {
@@ -106,7 +106,7 @@ impl Contract {
                 env::log_str("you can't register your data twice")
             }
             None => {
-                self.users.insert(username ,User::new(id, name, usertype, contact));
+                self.users.insert(username ,AppUser::new(id, name, usertype, contact));
                 env::log_str("your data has been registered successfully");
 
             }
@@ -143,7 +143,7 @@ impl Contract {
                 let id = value.id;
                 // inserting the same key in a hashmap edits it.
                 if username == env::signer_account_id().to_string() {
-                    self.users.insert(username, User::new(id, name, usertype, contact));
+                    self.users.insert(username, AppUser::new(id, name, usertype, contact));
                     env::log_str("Your Data has been edited successfully");
                 }else{
                     env::log_str("you need to be logged in to this account");
@@ -159,7 +159,7 @@ impl Contract {
     }
 
     // viewing my account details
-    pub fn view_account(&self) -> Option<&User>{
+    pub fn view_account(&self) -> Option<&AppUser>{
         let username = env::signer_account_id().to_string();
         match &self.users.get(&username) {
             Some(value) => return Some(value),
