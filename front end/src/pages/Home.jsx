@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
-import HomeDisplay from "../components/HomeDisplay";
-import Properties from "../components/Properties";
+import Navbar from "../components/Navigation/Navbar";
+import HomeDisplay from "../components/Home/HomeDisplay";
+import Properties from "../components/Properties/Properties";
 const Home = ({ className }) => {
 	return (
 		<>

@@ -1,6 +1,6 @@
-import Navbar from '../components/Navbar';
-import Properties from '../components/Properties';
-import SearchCard from '../components/SearchCard';
+import Navbar from '../components/Navigation/Navbar';
+import Properties from '../components/Properties/Properties';
+import SearchCard from '../components/SearchCard/SearchCard';
 
 const AllProperties = ({ className }) => {
     return (

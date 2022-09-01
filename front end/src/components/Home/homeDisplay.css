@@ -1,7 +1,7 @@
 .wallpaper{
 	position: relative;
 	height: 350px;
-	background-image: url("../images/cover.jpg");
+	background-image: url("../../images/cover.jpg");
 	background-size: cover;
 	/*background-attachment: fixed;*/
 	background-position: center;

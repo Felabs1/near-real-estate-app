@@ -1,5 +1,5 @@
 import "./propertyCard.css";
-import cover from "../images/cover.jpg";
+import cover from "../../images/cover.jpg";
 const PropertyCard = ({ className }) => {
     return (
     	<div className="w3-col l4 m6 property-card">

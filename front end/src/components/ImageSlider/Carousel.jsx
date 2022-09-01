@@ -1,8 +1,8 @@
 import "./carousel.scss";
-import image1 from "../images/3.jpg";
-import image2 from "../images/4.jpg";
-import image3 from "../images/5.jpg";
-import image4 from "../images/6.jpg";
+import image1 from "../../images/3.jpg";
+import image2 from "../../images/4.jpg";
+import image3 from "../../images/5.jpg";
+import image4 from "../../images/6.jpg";
 import ImageSlider from "./ImageSlider";
 
 const Carousel = () => {

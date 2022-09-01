@@ -1,5 +1,5 @@
-import { usestate } from 'react';
-import Navbar from '../components/Navbar';
+import { useState } from 'react';
+import Navbar from '../components/Navigation/Navbar';
 
 const EditAccount = ({ className }) => {
     const [fullName, setFullName] = useState("");

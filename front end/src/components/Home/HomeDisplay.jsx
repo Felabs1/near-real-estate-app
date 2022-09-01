@@ -1,4 +1,4 @@
-import cover from '../images/cover.jpg';
+import cover from '../../images/cover.jpg';
 import "./homeDisplay.css";
 
 const HomeDisplay = () => {

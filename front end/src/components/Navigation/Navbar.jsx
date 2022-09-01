@@ -1,4 +1,4 @@
-import logo from '../images/logo.jpg';
+import logo from '../../images/logo.jpg';
 const Navbar = () => {
     const isLoggedIn = true;
     if(isLoggedIn){

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import "./addProperty.scss";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navigation/Navbar";
 const AddProperty = () => {
 	const [uploadedImages, setUploadedImages] = useState([]);
 	const [propertyName, setPropertyName] = useState("");

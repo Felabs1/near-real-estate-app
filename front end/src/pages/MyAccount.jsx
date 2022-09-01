@@ -1,6 +1,6 @@
-import Navbar from '../components/Navbar';
-import AccountIcon from '../components/AccountIcon';
-import MyProperties from '../components/MyProperties';
+import Navbar from '../components/Navigation/Navbar';
+import AccountIcon from '../components/AccountIcon/AccountIcon';
+import MyProperties from '../components/Properties/MyProperties';
 
 const MyAccount = ({ className }) => {
     return (

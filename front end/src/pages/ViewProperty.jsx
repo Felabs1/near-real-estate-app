@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
-import Carousel from "../components/Carousel";
-import PropertyDescription from '../components/PropertyDescription';
+import Navbar from "../components/Navigation/Navbar";
+import Carousel from "../components/ImageSlider/Carousel";
+import PropertyDescription from '../components/Properties/PropertyDescription';
 const ViewProperty = ({ className }) => {
     return (
         <>
