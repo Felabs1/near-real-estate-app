@@ -41,11 +41,7 @@ pub struct Property {
   owner: AccountId,
   status: String,
   description: String,
-  image1: String,
-  image2: String,
-  image3: String,
-  image4: String,
-  image5: String,
+  images: Vec<String>,
 }
 
 impl Property {
@@ -57,11 +53,7 @@ impl Property {
     location: String,
     status: String,
     description: String,
-    image1: String,
-    image2: String,
-    image3: String,
-    image4: String,
-    image5: String,
+    images: Vec<String>,
   ) -> Self {
     Property {
       id,
@@ -71,11 +63,7 @@ impl Property {
       owner: env::signer_account_id().to_string(),
       status,
       description,
-      image1,
-      image2,
-      image3,
-      image4,
-      image5,
+      images,
     }
   }
 }
@@ -136,11 +124,7 @@ impl Contract {
     price: u128,
     location: String,
     description: String,
-    image1: String,
-    image2: String,
-    image3: String,
-    image4: String,
-    image5: String,
+    images: Vec<String>,
   ) {
     let id = self.user_properties.len() as u32;
     let status = "available".to_string();
@@ -152,11 +136,7 @@ impl Contract {
       location,
       status,
       description,
-      image1,
-      image2,
-      image3,
-      image4,
-      image5,
+      images,
     ));
     env::log_str("Property Added successfully");
   }
@@ -379,22 +359,26 @@ mod tests {
       30_000,
       "Nairobi".to_string(),
       "a very nice house to spend in pet friendly".to_string(),
-      "path_to_image1".to_string(),
-      "path_to_image2".to_string(),
-      "path_to_image3".to_string(),
-      "path_to_image4".to_string(),
-      "path_to_image5".to_string(),
+      vec![
+        "path_to_image1".to_string(),
+        "path_to_image2".to_string(),
+        "path_to_image3".to_string(),
+        "path_to_image4".to_string(),
+        "path_to_image5".to_string(),
+      ],
     );
     user1.new_property(
       "48 Mango".to_string(),
       300_000,
       "Nairobi".to_string(),
       "a very nice house to spend in pet friendly".to_string(),
-      "path_to_image1".to_string(),
-      "path_to_image2".to_string(),
-      "path_to_image3".to_string(),
-      "path_to_image4".to_string(),
-      "path_to_image5".to_string(),
+      vec![
+        "path_to_image1".to_string(),
+        "path_to_image2".to_string(),
+        "path_to_image3".to_string(),
+        "path_to_image4".to_string(),
+        "path_to_image5".to_string(),
+      ],
     );
     let result = user1.count_properties();
     assert_eq!(result, 2);
@@ -412,11 +396,13 @@ mod tests {
       30_000,
       "Nairobi".to_string(),
       "a very nice house to spend in pet friendly".to_string(),
-      "path_to_image1".to_string(),
-      "path_to_image2".to_string(),
-      "path_to_image3".to_string(),
-      "path_to_image4".to_string(),
-      "path_to_image5".to_string(),
+      vec![
+        "path_to_image1".to_string(),
+        "path_to_image2".to_string(),
+        "path_to_image3".to_string(),
+        "path_to_image4".to_string(),
+        "path_to_image5".to_string(),
+      ],
     );
     user1.buy_property(0);
     let properties = user1.list_properties();
@@ -464,22 +450,26 @@ mod tests {
       30_000,
       "Nairobi".to_string(),
       "a very nice house to spend in pet friendly".to_string(),
-      "path_to_image1".to_string(),
-      "path_to_image2".to_string(),
-      "path_to_image3".to_string(),
-      "path_to_image4".to_string(),
-      "path_to_image5".to_string(),
+      vec![
+        "path_to_image1".to_string(),
+        "path_to_image2".to_string(),
+        "path_to_image3".to_string(),
+        "path_to_image4".to_string(),
+        "path_to_image5".to_string(),
+      ],
     );
     user1.new_property(
       "48 Mango".to_string(),
       300_000,
       "Nairobi".to_string(),
       "a very nice house to spend in pet friendly".to_string(),
-      "path_to_image1".to_string(),
-      "path_to_image2".to_string(),
-      "path_to_image3".to_string(),
-      "path_to_image4".to_string(),
-      "path_to_image5".to_string(),
+      vec![
+        "path_to_image1".to_string(),
+        "path_to_image2".to_string(),
+        "path_to_image3".to_string(),
+        "path_to_image4".to_string(),
+        "path_to_image5".to_string(),
+      ],
     );
 
     let my_properties = user1.my_properties();

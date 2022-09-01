@@ -1,0 +1,24 @@
+.property-image{
+	height: 200px;
+	background-position: center;
+	background-size: cover;
+}
+
+.card-details{
+	padding: 8px 5px;
+	color: #444;
+}
+
+.card-details .price{
+	font-size: 21px;
+	font-weight: 300;
+}
+
+.card-details .sub-details{
+	font-size: 17px;
+	font-weight: 300;
+}
+
+.property-card{
+	margin: 25px 0px;
+}

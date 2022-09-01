@@ -1,0 +1,29 @@
+.wallpaper{
+	position: relative;
+	height: 350px;
+	background-image: url("../images/cover.jpg");
+	background-size: cover;
+	/*background-attachment: fixed;*/
+	background-position: center;
+}
+
+.logo {
+	width: 70px;
+	height: 70px;
+}
+
+.overlay{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	height: 100%;
+	background-color: rgba(10, 10, 100, 0.5);
+}
+
+.w3-input{
+	background-color: transparent;
+	outline: none;
+	color: #2196f3;
+}

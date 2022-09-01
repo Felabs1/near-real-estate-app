@@ -1,0 +1,11 @@
+.add-card{
+	color: #555;
+	display: flex;
+	flex-wrap: wrap;
+	.group{
+		margin: 10px;
+	}
+	@media(max-width: 600px){
+		flex-direction: column;
+	}
+}

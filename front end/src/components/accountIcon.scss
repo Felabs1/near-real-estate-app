@@ -1,0 +1,24 @@
+.accountIcon{
+	.w3-card-4{
+		display: flex;
+		.w3-table{
+			caption{
+				font-size: 17px;
+				padding: 10px;
+			}
+			tr{
+				td{
+					padding: 2px;
+				}
+				th{
+					padding: 2px;
+				}
+			}
+		}
+		.personIcon{
+			font-size: 200px;
+			font-weight: 300;
+			color: #555;
+		}
+	}
+}
