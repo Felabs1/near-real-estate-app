@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Navbar from '../components/Navigation/Navbar';
+import { editUser } from '../utils/utils';
 
 const EditAccount = ({ className }) => {
     const [fullName, setFullName] = useState("");
@@ -17,6 +18,18 @@ const EditAccount = ({ className }) => {
     const handleContact = (e) => {
         setContact(e.target.value);
     }
+
+    const saveDetails = (e) => {
+        e.preventDefault();
+        if (fullName === "" || userType === "" || contact === ""){
+            alert("please fill in all the details");
+            return;
+        }
+
+        let saveUser = editUser(fullName, userType, contact);
+        console.log(saveUser);
+
+    }
     return (
     	<>
     	<Navbar />
@@ -33,7 +46,7 @@ const EditAccount = ({ className }) => {
   				</select>
   				<input className="w3-input" placeholder="Contact" value={contact} onChange={handleContact}/>
   				<br />
-  				<button className="w3-button w3-grey w3-center w3-round-xlarge">Save</button>
+  				<button onClick={saveDetails} className="w3-button w3-grey w3-center w3-round-xlarge">Save</button>
   			</form>
   		</div>
   		</>      

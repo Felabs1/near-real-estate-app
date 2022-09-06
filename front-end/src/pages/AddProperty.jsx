@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 import "./addProperty.scss";
 import Navbar from "../components/Navigation/Navbar";
+import { newProperty } from "../utils/utils";
 const AddProperty = () => {
 	const [uploadedImages, setUploadedImages] = useState([]);
 	const [propertyName, setPropertyName] = useState("");
@@ -10,16 +11,16 @@ const AddProperty = () => {
 
 	const handleLocation = (e) => {
 		setLocation(e.target.value);
-	}
+	};
 	const handlePrice = (e) => {
 		setPrice(Number(e.target.value));
-	}
+	};
 	const handlePropertyName = (e) => {
 		setPropertyName(e.target.value);
-	}
+	};
 	const handleDescription = (e) => {
 		setPropertyDescription(e.target.value);
-	}
+	};
 	const uploadFiles = async (e) => {
 		const acceptedFiles = e.target.files;
 		const data = new FormData();
@@ -34,7 +35,7 @@ const AddProperty = () => {
 			.then((response) => response.json())
 			.then((result) => setUploadedImages(result))
 			.catch((error) => console.error("Error:", error));
-			console.log(uploadedImages);
+		console.log(uploadedImages);
 		// 19 1165.70
 		// 21 jul bal 520 1685.7 bil
 		// 1685.70 reminder instead 0f 1585 paid 1000
@@ -42,6 +43,28 @@ const AddProperty = () => {
 
 		// reminder picked the wrong figure
 		// total bill 630 total bill + 685;
+	};
+
+	const saveProperty = (e) => {
+		e.preventDefault();
+		const readyForSubmit =
+			propertyName !== "" ||
+			price !== "" ||
+			location !== "" ||
+			propertyDescription !== "" ||
+			uploadedImages.length > 0;
+		if (readyForSubmit) {
+			let add = newProperty(
+				propertyName,
+				price,
+				location,
+				propertyDescription,
+				uploadedImages
+			);
+			console.log(add);
+		}else{
+			alert("please fill in all the details");
+		}
 	};
 	return (
 		<>
@@ -52,13 +75,29 @@ const AddProperty = () => {
 				<h3 className="w3-padding">New Property</h3>
 				<form className="add-card">
 					<div className="group">
-						<input className="w3-input" onChange={handleLocation} value={location} placeholder="location" />
+						<input
+							className="w3-input"
+							onChange={handleLocation}
+							value={location}
+							placeholder="location"
+						/>
 					</div>
 					<div className="group">
-						<input className="w3-input" type="number" onChange={handlePrice} value={price} placeholder="price" />
+						<input
+							className="w3-input"
+							type="number"
+							onChange={handlePrice}
+							value={price}
+							placeholder="price"
+						/>
 					</div>
 					<div className="group">
-						<input className="w3-input" onChange={handlePropertyName} value={propertyName} placeholder="name" />
+						<input
+							className="w3-input"
+							onChange={handlePropertyName}
+							value={propertyName}
+							placeholder="name"
+						/>
 					</div>
 					<div className="group">
 						{/*<>*/}
@@ -86,7 +125,10 @@ const AddProperty = () => {
 					</div>
 					<br />
 					<div className="group">
-						<button className="w3-button w3-light-grey w3-round">
+						<button
+							onClick={saveProperty}
+							className="w3-button w3-light-grey w3-round"
+						>
 							Save Property
 						</button>
 					</div>
