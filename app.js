@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const url = require('url');
+require('dotenv').config();
+const PORT = process.env.PORT || 3030
 
 const app = express();
 let allowCrossDomain = function(req, res, next){
@@ -44,4 +46,4 @@ app.post('/', upload.array('multi-files'), (req, res) => {
 	// res.redirect('/');
 });
 
-app.listen(3001);
+app.listen(PORT);
