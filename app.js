@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const url = require('url');
+require('dotenv').config();
 const PORT = process.env.PORT || 3030
 
 const app = express();
