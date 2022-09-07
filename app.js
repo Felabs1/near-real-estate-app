@@ -1,49 +1,33 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const url = require('url');
-require('dotenv').config();
-const PORT = process.env.PORT || 3030
-
+const bodyParser = require('body-parser');
 const app = express();
-let allowCrossDomain = function(req, res, next){
-	res.header('Access-Control-Allow-Origin', "*");
-	res.header('Access-Control-Allow-Headers', "*");
-	next();
-}
+const upload = require('./multer');
+const cloudinary = require('./cloudinary');
+const fs = require('fs');
 
-app.use(allowCrossDomain);
-
-const storage = multer.diskStorage({
-	destination: function(req, file, cb) {
-		cb(null, 'uploads/');
-	},
-	filename: function(req, file, cb){
-		cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('/upload-images', upload.array('image'), async (req, res) => {
+	const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+	if(req.method === 'POST'){
+		const urls = [];
+		const files = req.files;
+		for (const file of files) {
+			const { path } = file;
+			const newPath = await uploader(path);
+			urls.push(newPath);
+			fs.unlinkSync(path);
+		}
+		res.status(200).json({
+			message: 'images uploaded successfully',
+			data: urls
+		})
+	}else{
+		res.status(405).json({
+			err: `${req.method} method not allowed`
+		})
 	}
 })
 
-var upload = multer({storage: storage});
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/uploads/:filename', (req, res) => {
-	console.log(req.protocol);
-	res.sendFile(__dirname + "/uploads/" + req.params.filename);
-})
-
-app.post('/', upload.array('multi-files'), (req, res) => {
-	var files = req.files;
-	var urls = [];
-	for (dir in files){
-		urls.push(req.protocol + "://" + req.headers.host + "/" + files[dir].path);
-	}
-	console.log(urls);
-	res.writeHead(200, {'Content-Type': 'application/json'});
-	res.write(JSON.stringify(urls));
-	res.end();
-	// res.redirect('/');
-});
-
-app.listen(PORT);
+module.exports = app;
+module.exports = app;
