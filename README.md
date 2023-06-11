@@ -1,4 +1,4 @@
-![homepagehambre](https://user-images.githubusercontent.com/92982964/207962913-07cfdc86-e28d-49a2-a459-49f007173fba.png)
+
 # Real Estate App
 
 A project based on introducing a real estate app in the near blockchain which makes the process of aquiring residential places to stay much easier.
